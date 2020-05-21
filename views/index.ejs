@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>News Search</title>
+    <style>
+        body {
+            padding-top: 15px;
+        }
+
+        article {
+            float: left;
+            padding: 10px;
+            height: auto;
+            width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div>
+        <h1>Enter a news keyword to search!</h1>
+        <form style="margin-top:40px;" action="/getnews" method="post">
+            <label for="keyword"><h4>Search</h4></label>
+            <input type="text" name="keyword" id="keyword" placeholder="Enter a keyword">
+            <button style ="margin-left:30px;" class="btn btn-success" type="Submit">Search !</button>
+        </form>
+    </div>
+    <div>
+        <% if (data && data.length) { %>
+            <h3>Articles found</h3>
+        <% data.forEach((element,index)=>{ %>
+        <% if(index%2===0) {%>
+        <article style="background-color: #f1f1f1;">
+            <a href=<%=element.url%>>
+                <h1><%=element.title%></h1>
+            </a>
+            <h4>By <% if(!element.author || element.author === null) {%>
+                <%=element.source.name%>
+                <%}else{ %>
+                <%=element.author%>. &nbsp;&nbsp;Date:-
+                <%=moment(element.publishedAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %></h4>
+            <%}%>
+            <p>
+                <img src=<%= element.urlToImage%> style=" float:left;width:300px;height:auto;margin-right:15px;"
+            onerror="this.onerror=null;this.src='noimage.png';">
+            <%if(element.content===null) {%>
+            <%=element.description %>
+            <%}else {%>
+            <%=element.content %>
+            <%}%>
+            </p>
+        </article>
+        <%} else { %>
+            <article style="background-color: #d4d4d4;">
+                <a href=<%=element.url%>>
+                    <h1><%=element.title%></h1>
+                </a>
+                <h4>By <% if(!element.author || element.author === null) {%>
+                    <%=element.source.name%>
+                    <%}else{ %>
+                    <%=element.author%>. &nbsp;&nbsp;Date:-
+                    <%=moment(element.publishedAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %></h4>
+                <%}%>
+            <p>
+                <img src=<%= element.urlToImage%> style=" float:left;width:300px;height:auto;margin-right:15px;"
+                onerror="this.onerror=null;this.src='noimage.png';">
+                <%if(element.content===null) {%>
+                <%=element.description %>
+                <%}else {%>
+                <%=element.content %>
+                <%}%>
+                </p>
+            </article>
+            <% } %>
+                <% }) %>
+                <%} %>
+                <% if(data === null){ %>
+                <h3>No article found</h3>
+                <% } %>
+    </div>
+
+</body>
+
+</html>
