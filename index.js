@@ -9,9 +9,9 @@ const Newsarticles = require('./models/newsarticles.js');
 const app = express();
 const port = process.env.PORT;
 
-const newsapi = new NewsAPI('bf8fa21e1bb9441f91e4f8b81db51225');
+const newsapi = new NewsAPI('********************************');
 
-mongoose.connect("mongodb://agssjk:HJ1P7njDm3vdrQJZ@cluster0-shard-00-00-4tr5f.gcp.mongodb.net:27017,cluster0-shard-00-01-4tr5f.gcp.mongodb.net:27017,cluster0-shard-00-02-4tr5f.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority", {
+mongoose.connect("('********************************');", {
     useNewUrlParser: true
 })
 
